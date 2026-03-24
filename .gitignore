@@ -76,7 +76,7 @@ yolo_training.py
 train_dist.py
 train_dist_1.py
 training.py
-MemISTD_Evaluate_SmallTarget1.py
+MemISTD_Evaluate_SmallTarget 1.py
 MemISTD_Evaluate_SmallTarget.py
 MemISTD_Trainer_SmallTarget_1.py
 MemISTD_Trainer_SmallTarget.py
