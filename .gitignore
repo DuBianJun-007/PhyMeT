@@ -70,10 +70,15 @@ dataset/
 文档/
 run_train_4gpu.ps1
 run_train_4gpu1.sh
+run_train_4gpu.sh
+run_train_4gpu1.sh
 search_best_threshold.py
 yolo_training.py
-run_train_4gpu.sh
-run_train_4gpu 1.sh
 train_dist.py
 train_dist_1.py
 training.py
+MemISTD_Evaluate_SmallTarget1.py
+MemISTD_Evaluate_SmallTarget.py
+MemISTD_Trainer_SmallTarget_1.py
+MemISTD_Trainer_SmallTarget.py
+MemISTD_Utils_Fit.py
