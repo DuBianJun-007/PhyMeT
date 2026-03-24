@@ -59,6 +59,7 @@ find_best_conf_thresh.py
 .claude/settings.local.json
 claude-chats/
 .trae/
+.claude/
 
 # User-requested exclusions for GitHub sync
 MemISTD_NeurISP_Paper/
@@ -71,3 +72,8 @@ run_train_4gpu.ps1
 run_train_4gpu1.sh
 search_best_threshold.py
 yolo_training.py
+run_train_4gpu.sh
+run_train_4gpu 1.sh
+train_dist.py
+train_dist_1.py
+training.py
