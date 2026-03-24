@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/auto_commit_hook.py || true",
+            "statusMessage": "Auto committing changed file"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+# MemISTD Small Target Detection - ITSDT-15K 数据集配置
+# 基于 memistd_small_target_config_v2.yaml，适配 ITSDT-15K 数据集
+
+# ==================== 数据配置 ====================
+data:
+  # 选择数据集类型: "irdst" | "itsdt"
+  dataset_type: itsdt
+  dataset_root: ./dataset/ITSDT-15K/
+
+  # 输入尺寸（ITSDT 原图 640x480）
+  input_shape: [480, 640]
+  pad_to_size: [480, 480]  # 训练尺寸
+  eval_pad_to_size: [480, 640]  # 评估尺寸
+ 
+  base_size: 256
+  crop_size: 480
+  pad_divisor: 4
+  pad_only: true
+  scale_jitter: 0.0
+
+  data_augment: true
+  flip_augmentation: true
+  vflip_augmentation: true
+  brightness_jitter: 0.2
+  contrast_jitter: 0.2
+  gaussian_noise: 0.01
+
+# ==================== 模型配置 ====================
+model:
+  in_channels: 1
+  num_classes: 1
+  base_channels: 32
+  backbone_depth: 3
+  target_memory_slots: 16
+  background_memory_slots: 64
+  use_attention: true
+  norm_type: bn
+  act_type: relu
+  use_residual: true
+  ms_fusion_type: attention
+  global_fusion_strategy: spatial_reweight
+  bg_patch_sizes: [3, 5, 7]
+  tg_patch_sizes: [3, 5, 7]
+
+# ==================== 训练配置 ====================
+training:
+  batch_size: 1
+  accumulation_steps: 1
+  epochs: 50
+  fp16: false
+  lr: 0.001
+  weight_decay: 0.01
+  num_workers: 4
+  save_dir: ./logs/small_target_itsdt
+  save_period: 1
+  save_every_epoch: true
+
+# ==================== 分布式训练配置 ====================
+distributed:
+  enabled: true
+  backend: nccl
+  world_size: 4
+  master_addr: localhost
+  master_port: 29500
+
+# ==================== 损失权重调度器配置 ====================
+loss_scheduler:
+  warmup_epochs: 0
+  residual_recon_start_epoch: 0
+  residual_recon_weight: 1.0
+  residual_recon_rampup_epochs: 1
+
+# ==================== 残差重构损失配置 ====================
+residual_recon_loss:
+  alpha: 0.1
+  beta: 2.0
+  gamma: 0.5
+
+# ==================== YOLOX 损失配置 ====================
+yolox_loss:
+  strides: [1]
+  center_radius: 5.0
+  use_focal: true
+  focal_alpha: 0.25
+  focal_gamma: 3.0
+  adaptive_center_radius: true
+
+# ==================== 评估配置 ====================
+eval:
+  eval_flag: true
+  eval_period: 1
+  conf_thresh: 0.27
+  iou_thresh: 0.5
+  nms_thresh: 0.5
+  classes_path: model_data/classes.txt
+
+# ==================== 其他配置 ====================
+seed: 42

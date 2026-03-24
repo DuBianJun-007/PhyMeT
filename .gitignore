@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Cursor AI intermediate files
+# .cursor/rules/ is kept (project rules), everything else is ignored
+.cursor/*.md
+.cursor/*.py
+.cursor/*.txt
+.cursor/temp/
+.cursor/drafts/
+
+# AI assistant working directories (intermediate docs & drafts)
+docs/drafts/
+scripts/cursor_temp/
+
+# Checkpoints & large model files
+checkpoint/*/best.pth
+checkpoint/*/last.pth
+checkpoint/*/training_log.json
+
+# Dataset (usually too large for git)
+dataset/
+hot_map/
+
+# Misc
+*.log
+*.tmp
+uv.lock
+
+# 没用代码
+model_1/
+model/
+scripts/
+find_best_conf_thresh.py
+.find_best_conf_thresh.log/
+
+# Local/private tooling artifacts
+.claude/settings.local.json
+claude-chats/
+.trae/
+
+# User-requested exclusions for GitHub sync
+MemISTD_NeurISP_Paper/
+checkpoint/
+docs/
+dataset/
+.cursor/
+文档/
+run_train_4gpu.ps1
+run_train_4gpu1.sh
+search_best_threshold.py
+yolo_training.py

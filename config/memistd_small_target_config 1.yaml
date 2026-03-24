@@ -1,0 +1,95 @@
+# MemISTD Small Target Detection Configuration
+# Optimized for infrared small target detection (target size < 7x7 pixels)
+# MemISTD 小目标检测配置文件
+# 针对红外小目标检测优化（目标尺寸 < 7x7 像素）
+
+# ==================== 数据配置 ====================
+data:
+  base_size: 256
+  brightness_jitter: 0.1
+  contrast_jitter: 0.1
+  crop_size: 480
+  data_augment: true
+  pad_to_size: [480, 480] # [120, 120]
+  eval_pad_to_size: [480, 720]
+  dataset_root: ./dataset/IRDST/IRDST_real/
+  # dataset_root: ./dataset/IRDST/IRDST_mini/
+  flip_augmentation: true
+  gaussian_noise: 0.005
+  input_shape: [480, 720]
+  pad_divisor: 4
+  pad_only: true
+  scale_jitter: 0.0
+  vflip_augmentation: false
+
+# ==================== 模型配置 ====================
+model:
+  in_channels: 1
+  num_classes: 1
+  base_channels: 40
+  backbone_depth: 3
+  target_memory_slots: 8
+  background_memory_slots: 24
+  use_attention: true
+  norm_type: bn
+  act_type: relu
+  use_residual: true
+  ms_fusion_type: attention
+  global_fusion_strategy: spatial_reweight
+  bg_patch_sizes: [3, 5]
+  tg_patch_sizes: [3, 5]
+
+# ==================== 训练配置 ====================
+training:
+  batch_size: 1
+  accumulation_steps: 8
+  epochs: 400
+  fp16: false
+  lr: 0.001
+  num_workers: 4
+  save_dir: ./logs/small_target
+  save_period: 1
+  save_every_epoch: false
+
+
+# ==================== 分布式训练配置 ====================
+distributed:
+  enabled: true
+  backend: nccl
+  world_size: 4
+  master_addr: localhost
+  master_port: 29500
+
+# ==================== 损失权重调度器配置 ====================
+# 控制残差重构损失的渐进式启用
+loss_scheduler:
+  warmup_epochs: 0
+  residual_recon_start_epoch: 0
+  residual_recon_weight: 1.0
+  residual_recon_rampup_epochs: 1
+
+# ==================== 残差重构损失配置 ====================
+residual_recon_loss:
+  alpha: 1.0
+  beta: 0.1
+  gamma: 1.0
+
+# ==================== YOLOX损失配置 ====================
+yolox_loss:
+  strides: [1, 2, 4]
+  center_radius: 5.0
+  use_focal: true
+  focal_alpha: 0.25
+  focal_gamma: 2.0
+  adaptive_center_radius: true
+
+# ==================== 评估配置 ====================
+eval:
+  eval_flag: true
+  eval_period: 1
+  conf_thresh: 0.001
+  nms_thresh: 0.5
+  classes_path: model_data/classes.txt
+
+# ==================== 其他配置 ====================
+seed: 42
