@@ -70,7 +70,7 @@ dataset/
 文档/
 run_train_4gpu.ps1
 run_train_4gpu.sh
-run_train_4gpu1.sh
+run_train_4gpu 1.sh
 search_best_threshold.py
 yolo_training.py
 train_dist.py
